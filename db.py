@@ -19,14 +19,16 @@ CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY, 
     name TEXT NOT NULL, 
     lat REAL NOT NULL, 
-    lon REAL NOT NULL, 
-    FOREIGN KEY(rankingid) REFERENCES rankings(userid)))
+    lon REAL NOT NULL)
 
 RANKINGS TABLE:
 CREATE TABLE IF NOT EXISTS rankings (
-    userid INTEGER PRIMARY KEY, 
-    FOREIGN KEY(locationid) REFERENCES locations(id), 
-    enjoyment REAL NOT NULL)
+    id INTEGER PRIMARY KEY, 
+    userid INTEGER NOT NULL, 
+    locationid INTEGER NOT NULL, 
+    enjoyment REAL NOT NULL, 
+    FOREIGN KEY(userid) REFERENCES users(id), 
+    FOREIGN KEY(locationid) REFERENCES locations(id))
 """
 
 conn = sqlite3.connect("tables.db")
